@@ -1,0 +1,43 @@
+
+{% block head %} 
+<h1>Gross Customer Income</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Business Name</th>
+      <th>First Service Date</th>
+      <th>Last Service Date</th>
+      <th>Number of Repairs</th>
+      <th>Number of Sales</th>
+      <th>Gross Income</th>
+      <th>Drill-Down</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0] if record[0]}}</td>
+      <td>{{record[1] if record[1]}}</td>
+      <td>{{record[2] if record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td><a href="{{ url_for('gross_customer_income_drill_down', customer_id = record[8]) }}">Drill-Down</a></td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %} 

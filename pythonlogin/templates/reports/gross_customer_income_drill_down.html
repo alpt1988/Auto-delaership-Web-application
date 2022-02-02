@@ -1,0 +1,82 @@
+{% block head %} 
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('gross_customer_income') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<h2>Sale Details</h2>
+<table border="1">
+    <thead>
+    <tr>
+      <th>Sale Date</th>
+      <th>Sold Price</th>
+      <th>VIN</th>
+      <th>Model Year</th>
+      <th>Manufacturer</th>
+      <th>Model Name</th>
+      <th>Salesperson First Name</th>
+      <th>Salesperson Last Name</th>
+    </tr>
+      {% for record in results_sales %}
+      <tr>
+      
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[0]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+
+<hr>
+<h2>Repair Details</h2>
+<table border="1">
+    <thead>
+    <tr>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>VIN</th>
+      <th>Odometer</th>
+      <th>Part Cost</th>
+      <th>Labor Cost</th>
+      <th>Total Cost</th>
+      <th>Servicewriter First Name</th>
+      <th>Servicewriter Last Name</th>
+    </tr>
+      {% for record in results_repairs %}
+      <tr>
+      <td>{{record[1]}}</td>
+      {% if record[2] %}
+      <td>{{record[2]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      <td>{{record[0]}}</td>
+      <td>{{record[3]}}</td>
+      {% if record[5] %}
+      <td>{{record[5]}}</td>
+      {% else %}
+      <td>0</td>
+      {% endif %}
+      <td>{{record[4]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %} 
+

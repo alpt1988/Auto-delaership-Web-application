@@ -1,0 +1,33 @@
+
+{% block head %} 
+<h1>Top Performing Salesperson: {{ year }} - {{ month }}</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('monthly_sales') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Number of Cars Sold</th>
+      <th>Total Sales</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %} 

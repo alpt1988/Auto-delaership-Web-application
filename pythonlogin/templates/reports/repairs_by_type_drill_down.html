@@ -1,0 +1,70 @@
+
+{% block head %} 
+<h1>Repairs by Type - {{ manufacturer }}</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('repairs_by_manufacturer') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>Type/Model</th>
+      <th>Number of Repairs</th>
+      <th>All Part Costs</th>
+      <th>All Labor Costs</th>
+      <th>Total Repair Costs</th>
+    </tr>
+      {% for record in results %}
+      {% if record[6] %}
+      <tr style ="background-color: #bdbdbd">
+        <td>{{record[0]}} </td>
+        <td>{{record[2]}}</td>
+        {% if record[4] %}
+        <td>{{record[4]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[3] %}
+        <td>{{record[3]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[5] %}
+        <td>{{record[5]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        </tr>
+      {% else %}
+      <tr>
+        <td>{{record[0]}} </td>
+        <td>{{record[2]}}</td>
+        {% if record[4] %}
+        <td>{{record[4]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[3] %}
+        <td>{{record[3]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[5] %}
+        <td>{{record[5]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        </tr>
+      {% endif %}
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+
+{% endblock body %}

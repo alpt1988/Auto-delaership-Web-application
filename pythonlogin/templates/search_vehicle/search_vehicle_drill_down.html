@@ -1,0 +1,184 @@
+
+
+{% block body %} 
+<h2>Vehicle Detail</h2>
+<hr>
+{% if session['loggedin'] %}
+<a href="{{ url_for('privileged_search') }}">Go Back</a>
+<br>
+<a href="{{ url_for('login') }}"></i>Logout</a>
+{% else %}
+<a href="{{ url_for('search_vehicle') }}">Go Back</a>
+{% endif %}
+
+<hr>
+{% if type == 'Truck' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Rear Axles</th>
+      <th>Cargo Cover Type</th>
+      <th>Cargo Capacity</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Convertible' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Roof Type</th>
+      <th>Back Seat Count</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Van' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Has Driver Side Back Door</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      {% if record[5] %}
+      <td>Yes</td>
+      {% else %}
+      <td>No</td>
+      {% endif %}
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Car' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Doors</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% else %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Drive Train Type</th>
+      <th>Number of Cupholders</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endif %}
+
+{% if session["usertype"] in ["Owner", "Sales People"] %}
+<br>
+<a href="{{ url_for('saletransaction', vin = vin) }}" >Sell This Vehicle</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,61 @@
+
+{% block head %} 
+<h1>Monthly Sales</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Number of Sales</th>
+      <th>Sales Income</th>
+      <th>Net Income</th>
+      <th>Ratio (%)</th>
+      <th>Drill-Down</th>
+    </tr>
+      {% for record in results %}
+      {% if record[5] >= 125 %}
+      <tr style ="background-color: #74c476">
+        <td>{{record[0]}} </td>
+        <td>{{record[1]}}</td>
+        <td>{{record[2]}}</td>
+        <td>{{record[3]}}</td>
+        <td>{{record[4]}}</td>
+        <td>{{record[5]}}</td>
+        <td><a href="{{ url_for('monthly_sales_drill_down', year = record[0], month = record[1]) }}">Drill-Down</a></td>
+      </tr>
+      {% elif record[5] <= 110 %}
+      <tr style ="background-color: yellow">
+        <td>{{record[0]}}</td>
+        <td>{{record[1]}}</td>
+        <td>{{record[2]}}</td>
+        <td>{{record[3]}}</td>
+        <td>{{record[4]}}</td>
+        <td>{{record[5]}}</td>
+        <td><a href="{{ url_for('monthly_sales_drill_down', year = record[0], month = record[1]) }}">Drill-Down</a></td>
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{record[0]}}</td>
+        <td>{{record[1]}}</td>
+        <td>{{record[2]}}</td>
+        <td>{{record[3]}}</td>
+        <td>{{record[4]}}</td>
+        <td>{{record[5]}}</td>
+        <td><a href="{{ url_for('monthly_sales_drill_down', year = record[0], month = record[1]) }}">Drill-Down</a></td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %}

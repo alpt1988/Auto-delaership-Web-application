@@ -1,0 +1,40 @@
+<nav class="navtop">
+    <div>
+        <a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+        <br>
+        <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+    </div>
+</nav>
+
+<hr>
+
+<h2>Generate Reports</h2>
+
+<div class="report_list">
+    <hr>
+    <a href="{{ url_for('sales_by_color') }}" >Sales by Color</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('sales_by_type') }}" >Sales by Type</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('sales_by_manufacturer') }}" >Sales by Manufacturer</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('gross_customer_income') }}" >Gross Customer Income</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('repairs_by_manufacturer') }}" >Repairs by Manufacturer/Type/Model</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('below_cost_sales') }}" >Below Cost Sales</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('avg_time_in_inventory') }}" >Average Time in Inventory</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('parts_statistics') }}" >Parts Statistics</a>
+    <br>
+    <hr>
+    <a href="{{ url_for('monthly_sales') }}" >Monthly Sales</a>
+</div>

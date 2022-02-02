@@ -1,0 +1,53 @@
+
+{% block head %} 
+<h1>Repairs by Manufacturer</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>Manufacturer</th>
+      <th>Number of Repairs</th>
+      <th>All Part Costs</th>
+      <th>All Labor Costs</th>
+      <th>Total Repair Costs</th>
+      <th>Drill-Down</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+        <td>{{record[0]}} </td>
+        <td>{{record[1]}}</td>
+        {% if record[3] %}
+        <td>{{record[3]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[2] %}
+        <td>{{record[2]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[4] %}
+        <td>{{record[4]}}</td>
+        {% else %}
+        <td>0</td>
+        {% endif %}
+        {% if record[1] %}
+        <td><a href="{{ url_for('repairs_by_type_drill_down', manufacturer = record[0]) }}">Drill-Down</a></td>
+        {% else %}
+        <td></td>
+        {% endif %}
+        </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %}

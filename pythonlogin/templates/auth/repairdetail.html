@@ -1,0 +1,71 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner" %}
+            <a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"><i class="fas fa-home"></i>Home</a>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('partdetails') }}"><i class="fas fa-home"></i>Add Parts</a>
+            <br>
+            <a href="{{ url_for('search_customer') }}"><i class="fas fa-home"></i>Search/Add Customers</a>
+            <br>
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+</nav>
+<div class="register">
+	{% include "includes/alert.html" %}
+    <h1>Enter Repair Information</h1>
+    <form action="{{ url_for('repairdetail') }}" method="post" autocomplete="off">
+        <label for="vin">
+            VIN:
+        </label>
+        <input type="text" name="vin" placeholder="VIN" id="vin" value="{{ request.form['vin'] }}" >
+        <input type="submit" name="submit_button" value="Validate Vehicle">
+        <br/>
+
+
+        <label for="customerid">
+            Customer ID:
+        </label>
+        <input type="text" name="customerid" placeholder="CustomerID" id="customerid" value="{{ request.form['customerid'] }}" >
+        <input type="submit" name="submit_button" value="Validate Customer">
+        <br/>
+
+        <label for="startdate">
+            Start Date:
+        </label>
+        <input type="date" name="startdate" placeholder="yyyy-mm-dd" id="startdate" value="{{ request.form['startdate'] }}" >
+        <input type="submit" name="submit_button" value="Validate Repair">
+        <br/>
+
+        <label for="datecompleted">
+            Date Completed:
+        </label>
+        <input type="date" name="datecompleted" placeholder="yyyy-mm-dd" id="datecompleted" value="{{ request.form['datecompleted'] }}" >
+        <br/>
+
+        <label for="odometer">
+            Odometer:
+        </label>
+        <input type="number"  name="odometer" placeholder="Odometer in miles" id="odometer" value="{{ request.form['odometer'] }}" >
+        <br/>
+
+        <label for="laborcharges">
+            Labor Charges:
+        </label>
+        <input type="number"  name="laborcharges" placeholder="Labor Cost" id="laborcharges" value="{{ request.form['laborcharges'] }}" >
+        <br/>
+
+        <label for="description">
+            Descriptions:
+        </label>
+        <textarea cols="40" rows="5" name="description" placeholder="Description" id="laborcharges" value="{{ request.form['description'] }}" ></textarea>
+        <br/>
+
+        <input type="submit" name="submit_button" value="Enter">
+
+
+
+    </form>
+</div>

@@ -1,0 +1,12 @@
+
+{% if session['loggedin'] %}
+{% if session['usertype'] in ["Manager", "Owner"] %}
+<a href="{{ url_for('privileged_search_manager') }}">Go Back</a>
+{% else %}
+<a href="{{ url_for('privileged_search') }}">Go Back</a>
+{% endif %}
+{% else %}
+<a href="{{ url_for('search_vehicle') }}">Go Back</a>
+{% endif %}
+
+<h1>Sorry, it looks like we don't have that in stock.</h1>

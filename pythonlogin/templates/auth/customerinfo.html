@@ -1,0 +1,172 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner" %}
+            <a href="{{ url_for('privileged_search_manager') }}"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"></i>Home</a>
+            {% endif %}
+            <br>
+            {% if session["usertype"] in ["Owner"] %}
+            <a href="{{ url_for('saletransaction', vin = 'VIN') }}" >Enter Sale Transactions</a>
+            <br>
+            <a href="{{ url_for('repairdetail') }}" >Enter Repair Information</a>
+            <br>
+            {% elif session["usertype"] in ["Service Writer"] %}
+            <a href="{{ url_for('repairdetail') }}" >Enter Repair Information</a>
+            <br>
+            {% else %}
+            <a href="{{ url_for('saletransaction', vin = 'VIN') }}" >Enter Sale Transactions</a>
+            <br>
+            {% endif %}
+            <a href="{{ url_for('login') }}" >Logout</a>
+            <br>
+        </div>
+</nav>
+
+<head>
+    <script>
+function onSelectChange(){
+    var sel = document.getElementById('selectcustomertype');
+    var strUser = sel.options[sel.selectedIndex].text;  //getting the selected option's text
+
+    if(strUser == 'Select Type'){
+         document.getElementById('licensenumber').disabled = true;
+         document.getElementById('customerfirstname').disabled = true;
+         document.getElementById('customerlastname').disabled = true;
+         document.getElementById('tin').disabled = true;
+         document.getElementById('businessname').disabled = true;
+         document.getElementById('businessfirstname').disabled = true;
+	 document.getElementById('businesslastname').disabled = true;
+         document.getElementById('title').disabled = true;
+    }
+    if(strUser == 'Person'){
+         document.getElementById('licensenumber').disabled = false;
+         document.getElementById('customerfirstname').disabled = false;
+         document.getElementById('customerlastname').disabled = false;
+         document.getElementById('tin').disabled = true;
+         document.getElementById('businessname').disabled = true;
+         document.getElementById('businessfirstname').disabled = true;
+	 document.getElementById('businesslastname').disabled = true;
+         document.getElementById('title').disabled = true;
+    }
+    if(strUser == 'Business'){
+         document.getElementById('licensenumber').disabled = true;
+         document.getElementById('customerfirstname').disabled = true;
+         document.getElementById('customerlastname').disabled = true;
+         document.getElementById('tin').disabled = false;
+         document.getElementById('businessname').disabled = false;
+         document.getElementById('businessfirstname').disabled = false;
+	 document.getElementById('businesslastname').disabled = false;
+         document.getElementById('title').disabled = false;
+    }
+}
+
+</script>
+</head>
+
+<div class="register">
+	{% include "includes/alert.html" %}
+    <h1>Enter Customer Information</h1>
+
+
+    <form action="{{ url_for('customerinfo') }}" method="post" autocomplete="off">
+        <label for="selectcustomertype">
+            Select customer type:
+        </label>
+        <select name="selectcustomertype" id= "selectcustomertype" onchange="onSelectChange()">
+          <option value="Select Type">Select Type</option>
+          <option value="Business">Business</option>
+          <option value="Person">Person</option>
+        </select>
+        <br/>
+        <label for="customerid">
+            Customer ID:
+        </label>
+        <input type="text" name="customerid" placeholder="CustomerID" id="customerid" required>
+        <br/>
+
+        <label for="emailaddress">
+            Email Address:
+        </label>
+        <input type="email" name="emailaddress" placeholder="xxx@xxx.com" id="emailaddress" required>
+        <br/>
+
+        <label for="phonenumber">
+            Phone Number:
+        </label>
+        <input type="text" name="phonenumber" placeholder="PhoneNumber" id="phonenumber" required>
+        <br/>
+
+        <label for="address">
+            Address:
+        </label>
+        <input type="text" name="address" placeholder="Street, Apt. #" id="address" required>
+        <br/>
+
+        <label for="city">
+            City:
+        </label>
+        <input type="text" name="city" placeholder="City" id="city" required>
+        <br/>
+
+        <label for="state">
+            State:
+        </label>
+        <input type="text" name="state" placeholder="State" id="state" required>
+        <br/>
+
+        <label for="postalcode">
+            Postal Code:
+        </label>
+        <input type="text" name="postalcode" placeholder="Postal Code" id="postalcode" required>
+        <br/>
+
+        <label for="licensenumber">
+            Driving License Number:
+        </label>
+        <input type="text" name="licensenumber" id="licensenumber" placeholder="DrivingLicenseNumber" disabled="disabled"/>
+        <br/>
+        <label for="customerfirstname">
+            Customer First Name:
+        </label>
+        <input type="text" name="customerfirstname" id="customerfirstname" placeholder="Customer First Name" disabled="disabled"/>
+        <br/>
+        <label for="customerlastname">
+            Customer Last Name:
+        </label>
+        <input type="text" name="customerlastname" id="customerlastname" placeholder="Customer Last Name" disabled="disabled"/>
+        <br/>
+
+        <label for="tin">
+            Tax Indentification Number:
+        </label>
+        <input type="text" name="tin" id="tin" placeholder="Tax Indentification Number" disabled="disabled"/>
+        <br/>
+        <label for="businessname">
+            Business Name:
+        </label>
+        <input type="text" name="businessname" id="businessname" placeholder="Business Name" disabled="disabled"/>
+        <br/>
+        <label for="businessfirstname">
+            Business First Name:
+        </label>
+        <input type="text" name="businessfirstname" id="businessfirstname" placeholder="Business First Name" disabled="disabled"/>
+        <br/>
+	<label for="businesslastname">
+            Business Last Name:
+        </label>
+        <input type="text" name="businesslastname" id="businesslastname" placeholder="Business Last Name" disabled="disabled"/>
+        <br/>
+        <label for="title">
+            Title:
+        </label>
+        <input type="text" name="title" id="title" placeholder="Title" disabled="disabled"/>
+        <br/>
+
+
+
+        <div class="msg">{{ msg }}</div>
+        <input type="submit" value="Enter">
+
+    </form>
+</div>

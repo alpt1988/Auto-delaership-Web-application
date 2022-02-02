@@ -1,0 +1,161 @@
+{% extends 'search_vehicle/base.html' %}
+
+{% block head %} 
+<h1>Welcome to Jaunty Jalopies!</h1>
+{% endblock %}
+
+
+
+{% block body %}
+
+<a href="{{ url_for('login') }}" >Login</a>
+
+<hr>
+
+<h2>Search Vehicle</h2>
+<h3>There are {{ num_vehicle_avail }} vehicles available for purchase!</h3>
+
+<form method="post" action="{{ url_for('search_vehicle') }}">
+<p>
+  <label for="Vehicletype">Please Select Vehicle Type</label>
+  <select name="Vehicletype" id="Vehicletype">
+    <option value="">Please Select Vehicle Type</option>
+      <option value="Car">Car</option>
+      <option value="Convertible">Convertible</option>
+      <option value="Truck">Truck</option>
+      <option value="Van">Van</option>
+      <option value="SUV">SUV</option>
+    </select>
+</p>
+
+<p>
+  <label for="Manufacturer">Please Select Manufacturer</label>
+  <select name="Manufacturer" id="Manufacturer">
+    <option value="" SELECTED>Please Select Manufacturer</option>
+    {% for manufacturer in manufacturerlist %}
+    <option value= "{{manufacturer}}">{{manufacturer}}</option>"
+    {% endfor %}
+    </select>
+</p>
+
+
+<p>
+  <label for="ModelYear">Please Select Model Year</label>
+  <select name="ModelYear" id="ModelYear">Model Year
+    <option value="" SELECTED>Please Select Model Year</option>
+    {% for year in yearlist %}
+    <option value= "{{year}}">{{year}}</option>"
+    {% endfor %}
+  </select>
+</p>
+
+<p>
+  <label for="Color">Please Select Color</label>
+  <select name="Color" id="Color">
+  <option value="" SELECTED>Please Select Color</option>
+  <option value="Aluminum">Aluminum</option>
+  <option value="Beige">Beige</option>
+  <option value="Black">Black</option>
+  <option value="Blue">Blue</option>
+  <option value="Brown">Brown</option>
+  <option value="Bronze">Bronze</option>
+  <option value="Claret">Claret</option>
+  <option value="Copper">Copper</option>
+  <option value="Cream">Cream</option>
+  <option value="Gold">Gold</option>
+  <option value="Gray">Gray</option>
+  <option value="Green">Green</option>
+  <option value="Maroon">Maroon</option>
+  <option value="Metallic">Metallic</option>
+  <option value="Navy">Navy</option>
+  <option value="Orange">Orange</option>
+  <option value="Pink">Pink</option>
+  <option value="Purple">Purple</option>
+  <option value="Red">Red</option>
+  <option value="Rose">Rose</option>
+  <option value="Rust">Rust</option>
+  <option value="Silver">Silver</option>
+  <option value="Tan">Tan</option>
+  <option value="Turquoise">Turquoise</option>
+  <option value="White">White</option>
+  <option value="Yellow">Yellow</option>
+  </select>
+</p>
+
+<p>
+  <label for="ListpriceGT">List Price >=</label>
+  <input type="number" name="ListpriceGT" value="{{ request.form['ListpriceGT'] }}">
+</p>
+
+<p>
+  <label for="ListpriceLT">List Price <= </label>
+  <input type="number" name="ListpriceLT" value="{{ request.form['ListpriceLT'] }}">
+</p>
+
+<p>
+  <label for="Keyword">Keyword</label>
+  <input type="text" name="Keyword" value="{{ request.form['Keyword'] }}">
+</p>
+
+  <p>
+    <input type="submit" value="Submit">
+  </p>
+</form>
+
+<hr>
+{% if request.form['Vehicletype'] %}
+<p> Type: {{request.form['Vehicletype']}} </p>
+{% endif %}
+
+{% if request.form['Manufacturer'] %}
+<p> Manufacturer: {{request.form['Manufacturer']}} </p>
+{% endif %}
+
+{% if request.form['ModelYear'] %}
+<p> Year: {{request.form['ModelYear']}} </p>
+{% endif %}
+
+{% if request.form['Color'] %}
+<p> Color: {{request.form['Color']}} </p>
+{% endif %}
+
+{% if vehicledetail %}
+<p> Your search found {{vehicledetail | length}} vehicle(s).</p>
+{% endif %}
+
+<table border="1">
+<thead>
+<tr>
+  <th>VIN</th>
+  <th>Type</th>
+  <th>Model Year</th>
+  <th>Manufacturer</th>
+  <th>Model</th>
+  <th>Color(s)</th>
+  <th>Keyword Matches Description</th>
+  <th>List Price</th>
+  <th>View Details</th>
+</tr>
+
+  {% for vehicle in vehicledetail%}
+  <tr>
+  <td>{{vehicle[0]}}</td>
+  <td>{{vehicle[6]}}</td>
+  <td>{{vehicle[3]}}</td>
+  <td>{{vehicle[1]}}</td>
+  <td>{{vehicle[2]}}</td>
+  <td>{{vehicle[7]}}</td>
+  {% if vehicle[4] and request.form['Keyword'] %}
+  <td>Yes</td>
+  {% else %}
+  <td></td>
+  {% endif %}
+  <td>{{vehicle[5]}}</td>
+  <td><a href="{{ url_for('search_vehicle_drill_down', type = vehicle[6], vin = vehicle[0]) }}">View Details</a></td>
+  </tr>
+  {% endfor %}
+</tr>
+</thead>
+</table>
+
+{% endblock %}

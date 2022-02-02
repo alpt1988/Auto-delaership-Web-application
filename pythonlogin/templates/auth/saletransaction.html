@@ -1,0 +1,48 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner"%}
+            <a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"><i class="fas fa-home"></i>Home</a>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('search_customer') }}">Search/Add Customers</a>
+            <br>
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+</nav>
+<div class="register">
+	{% include "includes/alert.html" %}
+    <h1>Enter Sale Transaction</h1>
+    <form action="{{ url_for('saletransaction', vin=vin) }}" method="post" autocomplete="off">
+        <label for="vin">
+            VIN:
+        </label>
+        <input type="text" name="vin" placeholder="VIN" id="vin" value="{{vin}}" required>
+        <input type="submit" name="submit_button" value="Validate Vehicle">
+        <br/>
+
+
+        <label for="customerid">
+            Customer ID:
+        </label>
+        <input type="text" name="customerid" placeholder="CustomerID" id="customerid" value="{{ request.form['customerid'] }}" >
+        <input type="submit" name="submit_button" value="Validate Customer">
+        <br/>
+
+        <label for="purchasedate">
+            Purchase Date:
+        </label>
+        <input type="date" name="purchasedate" placeholder="yyyy-mm-dd" id="purchasedate" value="{{ request.form['purchasedate'] }}" >
+        <br/>
+
+        <label for="soldprice">
+            Sold Price:
+        </label>
+        <input type="number" name="soldprice" placeholder="Sold Price" id="soldprice" value="{{ request.form['soldprice'] }}" >
+        <br/>
+
+        <input type="submit" name="submit_button" value="Enter">
+
+    </form>
+</div>

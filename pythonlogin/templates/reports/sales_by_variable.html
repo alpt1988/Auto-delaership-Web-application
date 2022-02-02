@@ -1,0 +1,41 @@
+
+{% block head %} 
+<h1>Sales by {{ variable }}</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>{{ variable }}</th>
+      <th>The Previous 30 Days</th>
+      <th>The Previous Year</th>
+      <th>All Time</th>
+    </tr>
+      {% for record in stats %}
+      <tr>
+      <td>{{record[0]}}</td>
+      {% if record[3] %}
+      <td>{{record[3]}}</td>
+      {% else %}
+      <td>0</td>
+      {% endif %}
+      {% if record[2] %}
+      <td>{{record[2]}}</td>
+      {% else %}
+      <td>0</td>
+      {% endif %}
+      <td>{{record[1]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %}

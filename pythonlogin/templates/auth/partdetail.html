@@ -1,0 +1,55 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner" %}
+            <a href="{{ url_for('privileged_search_manager') }}"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"></i>Home</a>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('repairdetail') }}" >Enter Repair Information</a>
+            <br>
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            <br/>
+        </div>
+</nav>
+<div class="register">
+	{% include "includes/alert.html" %}
+    <h1>Enter Part Details</h1>
+    <form action="{{ url_for('partdetails') }}" method="post" autocomplete="off">
+
+        <label for="vin">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="vin" placeholder="VIN" id="vin" value="{{ request.form['vin'] }}" required>
+
+        <label for="startdate">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="startdate" placeholder="StartDate(YYYYMMDD)" id="startdate" value="{{ request.form['startdate'] }}" required>
+
+        <label for="partnumber">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="partnumber" placeholder="PartNumber" id="partnumber" value="{{ request.form['partnumber'] }}" required>
+
+        <label for="vendorname">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="vendorname" placeholder="VendorName" id="vendorname" value="{{ request.form['vendorname'] }}" required>
+
+
+        <label for="quantity">
+            <i class="fas fa-lock"></i>
+        </label>
+        <input type="number" name="quantity" placeholder="Quantity" id="quantity" value="{{ request.form['quantity'] }}" required>
+
+        <label for="price">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="number" name="price" placeholder="Price" id="price" value="{{ request.form['price'] }}" required>
+
+
+        <div class="msg">{{ msg }}</div>
+        <input type="submit" value="Enter">
+    </form>
+</div>

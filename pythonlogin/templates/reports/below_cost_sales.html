@@ -1,0 +1,57 @@
+
+{% block head %} 
+<h1>Below Cost Sales</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>Sale Date</th>
+      <th>Invoice Price</th>
+      <th>Sold Price</th>
+      <th>Ratio (%)</th>
+      <th>Customer First Name</th>
+      <th>Customer Last Name</th>
+      <th>Business Name</th>
+      <th>Salesperson First Name</th>
+      <th>Salesperson Last Name</th>
+    </tr>
+      {% for record in results %}
+      {% if record[3] < 95 %}
+      <tr style ="background-color: #fb6a4a">
+        <td>{{record[0]}} </td>
+        <td>{{record[1]}}</td>
+        <td>{{record[2]}}</td>
+        <td>{{record[3]}}</td>
+        <td>{{record[4] if record[4]}}</td>
+        <td>{{record[5] if record[5]}}</td>
+        <td>{{record[6] if record[6]}}</td>
+        <td>{{record[7]}}</td>
+        <td>{{record[8]}}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{record[0]}} </td>
+        <td>{{record[1]}}</td>
+        <td>{{record[2]}}</td>
+        <td>{{record[3]}}</td>
+        <td>{{record[4] if record[4]}}</td>
+        <td>{{record[5] if record[5]}}</td>
+        <td>{{record[6] if record[6]}}</td>
+        <td>{{record[7]}}</td>
+        <td>{{record[8]}}</td>
+        </tr>
+      {% endif %}
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %}

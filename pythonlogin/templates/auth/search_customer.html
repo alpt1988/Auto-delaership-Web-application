@@ -1,0 +1,77 @@
+
+{% block body %}
+{% if session["usertype"] == "Owner" %}
+<a href="{{ url_for('privileged_search_manager') }}"></i>Home</a>
+{% else %}
+<a href="{{ url_for('privileged_search') }}"></i>Home</a>
+{% endif %}
+<br>
+{% if session["usertype"] in ["Owner"] %}
+<a href="{{ url_for('saletransaction', vin = 'VIN') }}" >Enter Sale Transactions</a>
+<br>
+<a href="{{ url_for('repairdetail') }}" >Enter Repair Information</a>
+<br>
+{% elif session["usertype"] in ["Service Writer"] %}
+<a href="{{ url_for('repairdetail') }}" >Enter Repair Information</a>
+<br>
+{% else %}
+<a href="{{ url_for('saletransaction', vin = 'VIN') }}" >Enter Sale Transactions</a>
+<br>
+{% endif %}
+<a href="{{ url_for('login') }}" >Logout</a>
+<br>
+
+<hr>
+
+<h2>Search Customers</h2>
+
+<form method="post" action="{{ url_for('search_customer') }}">
+
+    <p>
+        <label for="ID">Customer Driver License/Tax ID</label>
+        <input type="text" name="ID" value="{{ request.form['ID'] }}">
+    </p>
+
+    <p>
+    <input type="submit" value="Search">
+    </p>
+</form>
+
+<hr>
+
+{% if not customer_record %}
+<p> Your search found no customers</p>
+{% endif %}
+
+<table border="1">
+<thead>
+<tr>
+  <th>CustomerID</th>
+  <th>Driver License/Tax ID</th>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Business Name</th>
+  <th>Email Address</th>
+  <th>Phone Number</th>
+</tr>
+
+  {% for customer in customer_record%}
+  <tr>
+  <td>{{customer[0]}}</td>
+  <td>{{customer[1]}}</td>
+  <td>{{customer[2]}}</td>
+  <td>{{customer[3]}}</td>
+  <td>{{customer[4]}}</td>
+  <td>{{customer[5]}}</td>
+  <td>{{customer[6]}}</td>
+  </tr>
+  {% endfor %}
+</tr>
+</thead>
+</table>
+
+<hr>
+
+<a href="{{ url_for('customerinfo') }}" style="font-size: 24px">Add Customers</a>
+
+{% endblock %}

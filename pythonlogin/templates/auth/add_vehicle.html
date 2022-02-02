@@ -1,0 +1,293 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner"%}
+            <a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"><i class="fas fa-home"></i>Home</a>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+</nav>
+
+<hr>
+
+<head>
+    <script>
+function onSelectChange(){
+    var sel = document.getElementById('selectvehicletype');
+    var strUser = sel.options[sel.selectedIndex].text;  //getting the selected option's text
+
+    if(strUser == 'Select Type'){
+         document.getElementById('vin').disabled = true;
+         document.getElementById('modelname').disabled = true;
+         document.getElementById('modelyear').disabled = true;
+         document.getElementById('invoiceprice').disabled = true;
+         document.getElementById('description').disabled = true;
+         document.getElementById('vehiclecolor').disabled = true;
+         document.getElementById('manufacturename').disabled = true;
+         document.getElementById('numdoors').disabled = true;
+         document.getElementById('rooftype').disabled = true;
+         document.getElementById('backseatcount').disabled = true;
+         document.getElementById('havedriversidebackdoor').disabled = true;
+         document.getElementById('numrearaxles').disabled = true;
+         document.getElementById('cargocovertype').disabled = true;
+         document.getElementById('cargocapacity').disabled = true;
+         document.getElementById('drivetraintype').disabled = true;
+         document.getElementById('numcupholders').disabled = true;
+    }
+    if(strUser == 'Car'){
+         document.getElementById('vin').disabled = false;
+         document.getElementById('modelname').disabled = false;
+         document.getElementById('modelyear').disabled = false;
+         document.getElementById('invoiceprice').disabled = false;
+         document.getElementById('description').disabled = false;
+         document.getElementById('manufacturename').disabled = false;
+         document.getElementById('vehiclecolor').disabled = false;
+         document.getElementById('numdoors').disabled = false;
+         document.getElementById('rooftype').disabled = true;
+         document.getElementById('backseatcount').disabled = true;
+         document.getElementById('havedriversidebackdoor').disabled = true;
+         document.getElementById('numrearaxles').disabled = true;
+         document.getElementById('cargocovertype').disabled = true;
+         document.getElementById('cargocapacity').disabled = true;
+         document.getElementById('drivetraintype').disabled = true;
+         document.getElementById('numcupholders').disabled = true;
+    }
+    if(strUser == 'Convertible'){
+         document.getElementById('vin').disabled = false;
+         document.getElementById('modelname').disabled = false;
+         document.getElementById('modelyear').disabled = false;
+         document.getElementById('invoiceprice').disabled = false;
+         document.getElementById('description').disabled = false;
+         document.getElementById('manufacturename').disabled = false;
+         document.getElementById('vehiclecolor').disabled = false;
+         document.getElementById('numdoors').disabled = true;
+         document.getElementById('rooftype').disabled = false;
+         document.getElementById('backseatcount').disabled = false;
+         document.getElementById('havedriversidebackdoor').disabled = true;
+         document.getElementById('numrearaxles').disabled = true;
+         document.getElementById('cargocovertype').disabled = true;
+         document.getElementById('cargocapacity').disabled = true;
+         document.getElementById('drivetraintype').disabled = true;
+         document.getElementById('numcupholders').disabled = true;
+    }
+    if(strUser == 'Van'){
+         document.getElementById('vin').disabled = false;
+         document.getElementById('modelname').disabled = false;
+         document.getElementById('modelyear').disabled = false;
+         document.getElementById('invoiceprice').disabled = false;
+         document.getElementById('description').disabled = false;
+         document.getElementById('manufacturename').disabled = false;
+         document.getElementById('vehiclecolor').disabled = false;
+         document.getElementById('numdoors').disabled = true;
+         document.getElementById('rooftype').disabled = true;
+         document.getElementById('backseatcount').disabled = true;
+         document.getElementById('havedriversidebackdoor').disabled = false;
+         document.getElementById('numrearaxles').disabled = true;
+         document.getElementById('cargocovertype').disabled = true;
+         document.getElementById('cargocapacity').disabled = true;
+         document.getElementById('drivetraintype').disabled = true;
+         document.getElementById('numcupholders').disabled = true;
+    }
+    if(strUser == 'Truck'){
+         document.getElementById('vin').disabled = false;
+         document.getElementById('modelname').disabled = false;
+         document.getElementById('modelyear').disabled = false;
+         document.getElementById('invoiceprice').disabled = false;
+         document.getElementById('description').disabled = false;
+         document.getElementById('manufacturename').disabled = false;
+         document.getElementById('vehiclecolor').disabled = false;
+         document.getElementById('numdoors').disabled = true;
+         document.getElementById('rooftype').disabled = true;
+         document.getElementById('backseatcount').disabled = true;
+         document.getElementById('havedriversidebackdoor').disabled = true;
+         document.getElementById('numrearaxles').disabled = false;
+         document.getElementById('cargocovertype').disabled = false;
+         document.getElementById('cargocapacity').disabled = false;
+         document.getElementById('drivetraintype').disabled = true;
+         document.getElementById('numcupholders').disabled = true;
+    }
+    if(strUser == 'SUV'){
+         document.getElementById('vin').disabled = false;
+         document.getElementById('modelname').disabled = false;
+         document.getElementById('modelyear').disabled = false;
+         document.getElementById('invoiceprice').disabled = false;
+         document.getElementById('description').disabled = false;
+         document.getElementById('manufacturename').disabled = false;
+         document.getElementById('vehiclecolor').disabled = false;
+         document.getElementById('numdoors').disabled = true;
+         document.getElementById('rooftype').disabled = true;
+         document.getElementById('backseatcount').disabled = true;
+         document.getElementById('havedriversidebackdoor').disabled = true;
+         document.getElementById('numrearaxles').disabled = true;
+         document.getElementById('cargocovertype').disabled = true;
+         document.getElementById('cargocapacity').disabled = true;
+         document.getElementById('drivetraintype').disabled = false;
+         document.getElementById('numcupholders').disabled = false;
+    }
+}
+
+</script>
+</head>
+
+<div class="register">
+	{% include "includes/alert.html" %}
+
+    <hr>
+    <h1>{{ title }}</h1>
+
+
+    <form action="{{ url_for('add_vehicle') }}" method="post" autocomplete="off">
+        <label for="selectvehicletype">
+            Select Vehicle Type:
+        </label>
+        <select name="selectvehicletype" id= "selectvehicletype" onchange="onSelectChange()">
+          <option value="">Select Vehicle Type</option>
+          <option value="SUV">SUV</option>
+          <option value="Car">Car</option>
+          <option value="Van">Van</option>
+          <option value="Convertible">Convertible</option>
+          <option value="Truck">Truck</option>
+        </select>
+        <br/>
+        <label for="vin">
+            VIN:
+        </label>
+        <input type="text" name="vin" placeholder="VIN" id="vin" required disabled="disabled"/>
+        <br/>
+
+        <label for="modelname">
+            Model Name:
+        </label>
+        <input type="text" name="modelname" placeholder="Model Name" id="modelname" required disabled="disabled"/>
+        <br/>
+
+        <label for="modelyear">
+            Model Year:
+        </label>
+        <input type="number" name="modelyear" placeholder="Model Year" id="modelyear" required disabled="disabled"/>
+        <br/>
+
+        <label for="invoiceprice">
+            Invoice Price:
+        </label>
+        <input type="number" name="invoiceprice" placeholder="Invoice Price" id="invoiceprice" required disabled="disabled"/>
+        <br/>
+
+        <label for="description">
+            Description:
+        </label>
+        <input type="text" name="description" placeholder="Description" id="description" disabled="disabled"/>
+        <br/>
+
+        <label for="manufacturename">
+            Manufacturer:
+        </label>
+        <select name="manufacturename" id="manufacturename" onchange="onSelectChange()" >
+            <option value="" SELECTED>Select Manufacturer</option>
+            {% for manufacturer in manufacturerlist %}
+            <option value= "{{manufacturer}}">{{manufacturer}}</option>"
+            {% endfor %}
+        </select>
+
+        <br/>
+
+        <label for="vehiclecolor">
+            Select Vehicle Color:
+        </label>
+        <select name="vehiclecolor" id= "vehiclecolor" disabled="disabled"/>
+          <option value="Select Color">Select Color</option>
+          <option value="Aluminum">Aluminum</option>
+          <option value="Beige">Beige</option>
+          <option value="Black">Black</option>
+          <option value="Blue">Blue</option>
+          <option value="Brown">Brown</option>
+          <option value="Bronze">Bronze</option>
+          <option value="Claret">Claret</option>
+          <option value="Copper">Copper</option>
+          <option value="Cream">Cream</option>
+          <option value="Gold">Gold</option>
+          <option value="Gray">Gray</option>
+          <option value="Green">Green</option>
+          <option value="Maroon">Maroon</option>
+          <option value="Metallic">Metallic</option>
+          <option value="Navy">Navy</option>
+          <option value="Orange">Orange</option>
+          <option value="Pink">Pink</option>
+          <option value="Purple">Purple</option>
+          <option value="Red">Red</option>
+          <option value="Rose">Rose</option>
+          <option value="Rust">Rust</option>
+          <option value="Silver">Silver</option>
+          <option value="Tan">Tan</option>
+          <option value="Turquoise">Turquoise</option>
+          <option value="White">White</option>
+          <option value="Yellow">Yellow</option>
+        </select>
+        <br/>
+
+        <h3>Car-specific</h3>
+        <label for="numdoors">
+            Number of Doors:
+        </label>
+        <input type="number" name="numdoors" id="numdoors" placeholder="Number of Doors" required disabled="disabled"/>
+        <br/>
+
+        <h3>Convertible-specific</h3>
+        <label for="rooftype">
+            Roof Type:
+        </label>
+        <input type="text" name="rooftype" id="rooftype" placeholder="Roof Type" required disabled="disabled"/>
+        <br/>
+        <label for="backseatcount">
+            Back Seat Count:
+        </label>
+        <input type="number" name="backseatcount" id="backseatcount" placeholder="Number of backseat" required disabled="disabled"/>
+        <br/>
+
+
+        <h3>Van-specific</h3>
+        <label for="havedriversidebackdoor">
+            Have Driver Side Backdoor?
+        </label>
+        <input type="number" name="havedriversidebackdoor" id="havedriversidebackdoor" placeholder="0 or 1" required disabled="disabled"/>
+        <br/>
+
+        <h3>Truck-specific</h3>
+        <label for="numrearaxles">
+            Number of Rear Axles:
+        </label>
+        <input type="number" name="numrearaxles" id="numrearaxles" placeholder="Number of rear axles" required disabled="disabled"/>
+        <br/>
+        <label for="cargocovertype">
+            Cargo Cover Type:
+        </label>
+        <input type="number" name="cargocovertype" id="cargocovertype" placeholder="Cargo Cover Type" required disabled="disabled"/>
+        <br/>
+        <label for="cargocapacity">
+            Cargo Capacity:
+        </label>
+        <input type="number" name="cargocapacity" id="cargocapacity" placeholder="Cargo Capacity" required disabled="disabled"/>
+        <br/>
+
+        <h3>SUV-specific</h3>
+        <label for="drivetraintype">
+            Drive Train Type:
+        </label>
+        <input type="text" name="drivetraintype" id="drivetraintype" placeholder="Drive Train Type" required disabled="disabled"/>
+        <br/>
+        <label for="numcupholders">
+            Number of Cupholders:
+        </label>
+        <input type="number" name="numcupholders" id="numcupholders" placeholder="Number of Cupholders" required disabled="disabled"/>
+        <br/>
+
+
+
+
+
+        <div class="msg">{{ msg }}</div>
+        <input type="submit" value="Enter">
+    </form>
+</div>

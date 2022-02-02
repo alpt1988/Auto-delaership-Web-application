@@ -1,0 +1,29 @@
+
+{% block head %} 
+<h1>Average Time in Inventory</h1>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Home</a>
+<br>
+<a href="{{ url_for('login') }}">Logout</a>
+<br>
+<a href="{{ url_for('generate_reports') }}">Go Back</a>
+<hr>
+{% endblock %}
+
+{% block body %} 
+<table border="1">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Average Days in Inventory</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{record[1]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endblock body %} 

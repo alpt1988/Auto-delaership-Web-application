@@ -1,0 +1,321 @@
+
+{% block body %} 
+<h2>Vehicle Detail</h2>
+<hr>
+<a href="{{ url_for('privileged_search_manager') }}">Go Back</a>
+<br>
+<a href="{{ url_for('login') }}"></i>Logout</a>
+<hr>
+<h3>You can access all the information of this vehicle</h3>
+<hr>
+<h3>Basic Information</h3>
+<br>
+{% if type == 'Truck' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Rear Axles</th>
+      <th>Cargo Cover Type</th>
+      <th>Cargo Capacity</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      <td>{{record[10]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Convertible' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Roof Type</th>
+      <th>Back Seat Count</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Van' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Has Driver Side Back Door</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      {% if record[6] %}
+      <td>Yes</td>
+      {% else %}
+      <td>No</td>
+      {% endif %}
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Car' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Doors</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% else %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Drive Train Type</th>
+      <th>Number of Cupholders</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endif %}
+
+{% if session["usertype"] == "Owner" and not results_sale_history %}
+<br>
+<a href="{{ url_for('saletransaction', vin = vin) }}" >Sell This Vehicle</a>
+{% endif %}
+<hr>
+<h3>Inventory History</h3>
+
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Add Date</th>
+      <th>Inventory Clerk First Name</th>
+      <th>Inventory Clerk Last Name</th>
+    </tr>
+      {% for record in results_add_history %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+<hr>
+<h3>Sale History</h3>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>VIN</th>
+    <th>Customer First Name</th>
+    <th>Customer Last Name</th>
+    <th>Business Name</th>
+    <th>Email</th>
+    <th>Phone Number</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Postal Code</th>
+    <th>Solde Price</th>
+    <th>Sale Date</th>
+    <th>Sale First Name</th>
+    <th>Sale Last Name</th>
+  </tr>
+    {% for record in results_sale_history %}
+    <tr>
+    <td>{{record[0]}}</td>
+    {% if record[1] %}
+      <td>{{record[1]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      {% if record[2] %}
+      <td>{{record[2]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      {% if record[3] %}
+      <td>{{record[3]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+    <td>{{record[4]}}</td>
+    <td>{{record[5]}}</td>
+    <td>{{record[6]}}</td>
+    <td>{{record[7]}}</td>
+    <td>{{record[8]}}</td>
+    <td>{{record[9]}}</td>
+    <td>{{record[10]}}</td>
+    <td>{{record[11]}}</td>
+    <td>{{record[12]}}</td>
+    <td>{{record[13]}}</td>
+    </tr>
+    {% endfor %}
+  </tr>
+  </thead>
+</table>
+
+<hr>
+<h3>Repair History</h3>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>VIN</th>
+    <th>Customer First Name</th>
+    <th>Customer Last Name</th>
+    <th>Business Name</th>
+    <th>Service First Name</th>
+    <th>Service Last Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Labor Cost</th>
+    <th>Part Cost</th>
+    <th>Total Cost</th>
+  </tr>
+    {% for record in results_repair_history %}
+    <tr>
+    <td>{{record[0]}}</td>
+    {% if record[1] %}
+      <td>{{record[1]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      {% if record[2] %}
+      <td>{{record[2]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+      {% if record[3] %}
+      <td>{{record[3]}}</td>
+      {% else %}
+      <td></td>
+      {% endif %}
+    <td>{{record[4]}}</td>
+    <td>{{record[5]}}</td>
+    <td>{{record[6]}}</td>
+    <td>{{record[7]}}</td>
+    <td>{{record[8]}}</td>
+    {% if record[9] %}
+      <td>{{record[9]}}</td>
+      {% else %}
+      <td>0</td>
+      {% endif %}
+    <td>{{record[10]}}</td>
+    </tr>
+    {% endfor %}
+  </tr>
+  </thead>
+</table>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<nav class="navtop">
+        <div>
+            {% if session["usertype"] == "Owner" %}
+            <a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+            {% else %}
+            <a href="{{ url_for('privileged_search') }}"><i class="fas fa-home"></i>Home</a>
+            {% endif %}
+            <br>
+            <a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+            <br/>
+        </div>
+</nav>
+
+<div class="register">
+	{% include "includes/alert.html" %}
+    <h1>Update Manufacturer List</h1>
+
+    <hr>
+
+    <h3>Add Manufacturer</h3>
+
+
+    <form action="{{ url_for('manufacturerlist') }}" method="post" autocomplete="off">
+        <label for="manufacturer">
+            Manufacturer:
+        </label>
+        <input type="text" name="manufacturer_to_add" placeholder="Manufacturer Name" id="manufacturer_to_add">
+        <br>
+        <br>
+        <input type="submit" name="submit_button" value="Add Manufacturer">
+
+        <hr>
+
+    <h3>Delete Manufacturer</h3>
+        
+            <label for="manufacturer_to_delete">Manufacturer</label>
+            <select name="manufacturer_to_delete" id="manufacturer_to_delete">
+                <option value="" SELECTED>Please Select Manufacturer To Delete</option>
+                {% for manufacturer in delete_list %}
+                <option value= "{{manufacturer}}">{{manufacturer}}</option>"
+                {% endfor %}
+              </select>
+        <br>
+        <br>
+        <input type="submit" name="submit_button" value="Delete Manufacturer">
+
+    </form>
+</div>

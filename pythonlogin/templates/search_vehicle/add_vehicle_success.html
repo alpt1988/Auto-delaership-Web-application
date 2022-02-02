@@ -1,0 +1,194 @@
+
+
+{% block body %} 
+
+{% if session["usertype"] == "Owner" %}
+<a href="{{ url_for('privileged_search_manager') }}"><i class="fas fa-home"></i>Home</a>
+{% else %}
+<a href="{{ url_for('privileged_search') }}"><i class="fas fa-home"></i>Home</a>
+{% endif %}
+<br>
+<a href="{{ url_for('add_vehicle') }}">Go Back</a>
+<br>
+<a href="{{ url_for('login') }}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+
+<hr>
+
+<h2>Vehicle Detail</h2>
+<hr>
+<h3>You have successfully added this vehicle to the inventory!</h3>
+<hr>
+{% if type == 'Truck' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Rear Axles</th>
+      <th>Cargo Cover Type</th>
+      <th>Cargo Capacity</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      <td>{{record[10]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Convertible' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Roof Type</th>
+      <th>Back Seat Count</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Van' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Has Driver Side Back Door</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      {% if record[6] %}
+      <td>Yes</td>
+      {% else %}
+      <td>No</td>
+      {% endif %}
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% elif type == 'Car' %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Number of Doors</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% else %}
+<table border="1">
+    <thead>
+    <tr>
+      <th>VIN</th>
+      <th>Type</th>
+      <th>Model Name</th>
+      <th>Model Year</th>
+      <th>Invoice Price</th>
+      <th>List Price</th>
+      <th>Description</th>
+      <th>Drive Train Type</th>
+      <th>Number of Cupholders</th>
+      <th>Manufacturer</th>
+      <th>Color(s)</th>
+    </tr>
+      {% for record in results %}
+      <tr>
+      <td>{{record[0]}}</td>
+      <td>{{type}}</td>
+      <td>{{record[1]}}</td>
+      <td>{{record[2]}}</td>
+      <td>{{record[3]}}</td>
+      <td>{{record[4]}}</td>
+      <td>{{record[5]}}</td>
+      <td>{{record[6]}}</td>
+      <td>{{record[7]}}</td>
+      <td>{{record[8]}}</td>
+      <td>{{record[9]}}</td>
+      </tr>
+      {% endfor %}
+    </tr>
+    </thead>
+</table>
+{% endif %}
+{% endblock %}
